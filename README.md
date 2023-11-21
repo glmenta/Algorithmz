@@ -108,3 +108,36 @@ fxn fibRecursive(n) { //O(2^n)
     return fibRecursive(n - 1) + fibRecursive(n - 2)
 }
 ```
+
+### Sorting
+```
+O(NlogN)
+
+Bubble Sort
+fxn bubbleSort(nums) {
+    for (let i = 0; i < nums.length; i++) {
+        for (let j = 0; j < nums.length; j++) {
+            if (nums[j] > nums[j + 1]) {
+                let temp = nums[j];
+                nums[j] = nums[j + 1]
+                nums[j + 1] = temp;
+            }
+        }
+    }
+}
+
+Insertion Sort
+fxn insertionSort(nums) {
+
+}
+
+Selection Sort => use pointers to keep track of smallest item; and swap idx with [0]
+fxn selectionSort(nums) {
+
+}
+
+Merge Sort
+
+Quick Sort
+
+```
