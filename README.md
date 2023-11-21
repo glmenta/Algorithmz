@@ -18,6 +18,17 @@
 
 => Define something inside of itself;
 
+=> Anything that you can do with recursion, CAN be done iteratively (for loop, etc.) and vice versa
+    -There are pros and cons to both approaches:
+    Pros: DRY and Readable
+    Cons: Large Stack
+
+=> WHEN TO USE RECURSION:
+    => BFS and DFS is super good to use recursion
+    => Everytime we use a tree or conert something into a tree, consider recursion
+    => Divide a big problem into smaller subproblems => identical in nature in terms of calculations => solutions for each subproblem are combined to solve the big problem
+    => DIVIDE AND CONQUER
+
 => Example:
     Recursion function calls itself:
 
@@ -56,4 +67,44 @@
 
     And this is how the counter is:
     0 => 1 => 2 => 3 => 4 (hit base case)
+```
+
+### Recursion Application
+```
+Factorial => n!
+5! = 5 x 4 x 3 x 2 x 1
+5! = 5 x 4!
+5! = 5 x 4 x 3!
+5! = 5 x 4 x 3 x 2!
+5! = 5 x 4 x 3 x 2 x 1
+
+fxn findFactorialRecursive(num) {
+    if (num === 2) return 2
+    return num * findFactorialRecursive(num - 1)
+}
+
+fxn findFactorialIterative(num) {
+    let ans = 1;
+    if (num === 2) ans = 2
+    for (let i = 2; i <= num; i++) {
+        ans = ans x i
+    }
+    return ans
+}
+
+Fibonacci => 0,1,1,2,3,5...
+
+fxn fibIterative(n) {
+    let arr = [0, 1]
+    for (let i = 2; i < n + 1; i++) {
+        //sum prev two nums and push to arr
+        arr.push(arr[i-2] arr[i-1])
+    }
+    return arr[n]
+}
+
+fxn fibRecursive(n) { //O(2^n)
+    if (n < 2) return n
+    return fibRecursive(n - 1) + fibRecursive(n - 2)
+}
 ```
