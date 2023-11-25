@@ -126,18 +126,108 @@ fxn bubbleSort(nums) {
     }
 }
 
-Insertion Sort
-fxn insertionSort(nums) {
+function insertionSort(arr) {
+    // the `i` loop will iterate through every element of the array
+    // we begin at i = 1, because we can consider the first element of the array as a
+    // trivially sorted region of only one element
+    // insertion sort allows us to insert new elements anywhere within the sorted region
+    for (let i = 1; i < arr.length; i++) {
+        // grab the first element of the unsorted region
+        let currElement = arr[i];
 
-}
+        // the `j` loop will iterate left through the sorted region,
+        // looking for a legal spot to insert currElement
+        for (var j = i - 1; j >= 0 && currElement < arr[j]; j--) {
+            // keep moving left while currElement is less than the j-th element
 
-Selection Sort => use pointers to keep track of smallest item; and swap idx with [0]
-fxn selectionSort(nums) {
-
+            arr[j + 1] = arr[j];
+            // the line above will move the j-th element to the right,
+            // leaving a gap to potentially insert currElement
+        }
+        // insert currElement into that gap
+        arr[j + 1] = currElement;
+    }
+    return arr;
 }
 
 Merge Sort
+"Divide and Conquer"
+function merge(array1, array2) {
+    let merged = [];
 
-Quick Sort
+    // keep running while either array still contains elements
+    while (array1.length || array2.length) {
+        // if array1 is nonempty, take its the first element as ele1
+        // otherwise array1 is empty, so take Infinity as ele1
+        let ele1 = array1.length ? array1[0] : Infinity;
 
+        // do the same for array2, ele2
+        let ele2 = array2.length ? array2[0] : Infinity;
+
+        let next;
+        // remove the smaller of the eles from it's array
+        if (ele1 < ele2) {
+            next = array1.shift();
+        } else {
+            next = array2.shift();
+        }
+
+        // and add that ele to the new array
+        merged.push(next);
+    }
+
+    return merged;
+}
+
+function mergeSort(array) {
+    if (array.length <= 1) {
+        return array;
+    }
+
+    let midIdx = Math.floor(array.length / 2);
+    let leftHalf = array.slice(0, midIdx);
+    let rightHalf = array.slice(midIdx);
+
+    let sortedLeft = mergeSort(leftHalf);
+    let sortedRight = mergeSort(rightHalf);
+
+    return merge(sortedLeft, sortedRight);
+}
+
+Quick Sort => Pivot
+"Divide and Conquer"
+function quickSort(array) {
+    if (array.length <= 1) {
+        return array;
+    }
+
+    let pivot = array.shift();
+    let left = array.filter(el => el < pivot);
+    let right = array.filter(el => el >= pivot);
+
+    let leftSorted = quickSort(left);
+    let rightSorted = quickSort(right);
+
+    return leftSorted.concat([pivot]).concat(rightSorted);
+}
+```
+
+### When to use each sort
+```
+Insertion => best if few inputs/data and items are mostly sorted; it uses very little space;
+Bubble => only educational; sucks for implementing it in real life application
+Selection => only educational; same as bubble sort
+
+Merge => since it is nlogN; it is decent for most cases; stable; space complexity a bit worse than quicksort
+Quicksort => best for space complexity (not care about worst case) and also usually fastest; only downside if the list is already mostly sorted
+            => terrible pivot => even worse than merge sort; if this is the case, pick merge/insertion probably
+
+TLDR: Merge/Quicksort/Insertion all used in most cases depending on situation
+
+Is it possible to beat O(n log N)?
+=> mathematically, it is impossible b/c o(N log N) sorts by comparison; all of the sorts above are thru that concept
+
+=> However, we can bypass this scenario thru different sorts that are non-comparison
+    => Counting sort, Radix Sort
+    => These ONLY work with numbers though
 ```
